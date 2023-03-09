@@ -1,0 +1,15 @@
+{
+  "name": "web-authentication-system",
+  "version": "18.7.0",
+  "description": "User/password login authentication system",
+  "main": "main.js",
+  "scripts": {
+    "start": "node --no-warnings main.js",
+    "test": "jest"
+  },
+  "author": "Mert Oktay",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
