@@ -9,15 +9,18 @@
             <h1>Login Page</h1>
         </section>
         <div class="main">
-            <form>
+            <form action="./" method="post">
                 <label for="Username">Username</label><br>
                 <input type="text" id="Username" placeholder="Type your Username"><br><br>
                 <label for="Password">Password</label><br>
                 <input type="password" id="Password" placeholder="Type your Password"><br><br>
+                <section id="login">
+                    <button type="submit" id="lbutton"><p>Login</p></button>
+                </section>
+                <section id="signup">
+                    <a href="./register" id="regpage">Sign Up Now</a>
+                </section>
             </form>
         </div>
-        <section id="button">
-            <button type="button"><p>Login</p></button>
-        </section>
     </div>
 </body>

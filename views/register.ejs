@@ -1,0 +1,35 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Web Authentication System</title>
+    <link href= "/public/assets/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="register">
+        <section id="header">
+            <h1>Register Page</h1>
+        </section>
+        <% if (messages.error) { %>
+            <%= messages.error %>
+          <% } %>
+        <div class="main">
+            <form action="/register" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="name" placeholder="Type your Name" required><br><br>
+                <label for="surname">Surname</label><br>
+                <input type="text" id="surname" name="surname" placeholder="Type your Surname" required><br><br>
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" placeholder="Type your Username" required><br><br>
+                <label for="email">Email</label><br>
+                <input type="text" id="email" name="email" placeholder="Type your Email" required><br><br>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" placeholder="Type your Password" required><br><br>
+                <label for="Confirm Password">Confirm Password</label><br>
+                <input type="password" id="password" name="confirmedPassword" placeholder="Type your Password again" required><br><br>
+                <section id="rbutton">
+                    <button type="submit"><p>Register</p></button>
+                </section>
+            </form>
+        </div>
+        
+    </div>
+</body>

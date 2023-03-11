@@ -28,7 +28,14 @@ h1
 .login
 {
     display: block;
-    background-color: whitesmoke;
+    background-image: linear-gradient(to top, rgb(172,174,246),whitesmoke);
+    height: 50%;
+}
+.register
+{
+    display: block;
+    background-image: linear-gradient(to top, rgb(172,174,246),whitesmoke);
+    height: 60%;
 }
 #header
 {
@@ -43,16 +50,26 @@ h1
     align-items: center;
     padding: 20px 20px;
 }
-#button
+#login, #rbutton
 {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 5px;
+    padding: 20px 5px;
+}
+#lbutton
+{
+    width: 80%;
+}
+#signup
+{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
 }
 p
 {
-    padding: 5px 40px;
+    padding: 5px 25px;
     font-size: 15px;
 }
 label
