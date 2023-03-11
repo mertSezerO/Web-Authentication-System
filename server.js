@@ -5,11 +5,13 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const fs = require('fs')
+const path = require('path')
 
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
+  username => users.find(user => user.username === username),
   id => users.find(user => user.id === id)
 )
 
@@ -30,10 +32,11 @@ app.use(methodOverride('_method'))
 
 app.get('/login', (req, res) => {
     res.render('login.ejs')
+    parseUsers()
 })
 
 app.get('/', checkAuthenticated, (req, res) => {
-    res.render('loggedin.ejs', { name: req.user.name })
+    res.render('loggedin.ejs')
   })
   
 
@@ -49,23 +52,28 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 app.post('/register', async (req,res) => {
     try {
+        if(user.password !== user.confirmedPassword){
+            throw Error("Two different passwords typed")
+        }
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         users.forEach(user => {
             if(user.username === req.body.username){
                 throw Error("this username is taken")
             }
-            else if(user.email === req.body.username){
+            else if(user.email === req.body.email){
                 throw Error("there exists already an account with this email")
             }
         });
-        users.push({
+        const newUser = {
             id: Date.now.toString(),
             name: req.body.name,
             surname: req.body.surname,
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword
-        })
+        }
+        users.push(newUser)
+        parseNewUsers(newUser)
         res.redirect('/')
     } catch(err){
         res.redirect('/register')
@@ -75,15 +83,16 @@ app.post('/register', async (req,res) => {
 })
 
 app.delete('/logout', (req, res) => {
-    req.logOut()
-    res.redirect('/login')
+    req.logOut(function(err) {
+        if(err){ return next(err)}
+        res.redirect('/login')
+    })
 })
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next()
     }
-  
     res.redirect('/login')
 }
   
@@ -92,6 +101,19 @@ function checkNotAuthenticated(req, res, next) {
       return res.redirect('/')
     }
     next()
+}
+
+async function parseUsers() {
+    jsonsInDir = await fs.readdirSync('./Users')
+    jsonsInDir.forEach(file => {
+        const fileData = fs.readFileSync(path.join('./Users', file))
+        users.push(JSON.parse(fileData))
+    }) 
+}
+
+async function parseNewUsers(newUser){
+    const newJson = JSON.stringify(newUser)
+    await fs.writeFileSync(path.join('./Users','user_'+users.length.toString() + '.json'),newJson) 
 }
 
 app.listen(3000)

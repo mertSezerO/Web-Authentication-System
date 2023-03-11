@@ -8,12 +8,15 @@
         <section id="header">
             <h1>Login Page</h1>
         </section>
+        <% if (messages.error) { %>
+            <%= messages.error %>
+          <% } %>
         <div class="main">
-            <form action="./" method="post">
-                <label for="Username">Username</label><br>
-                <input type="text" id="Username" placeholder="Type your Username"><br><br>
+            <form action="/login" method="post">
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" placeholder="Type your Username"><br><br>
                 <label for="Password">Password</label><br>
-                <input type="password" id="Password" placeholder="Type your Password"><br><br>
+                <input type="password" id="password" name="password" placeholder="Type your Password"><br><br>
                 <section id="login">
                     <button type="submit" id="lbutton"><p>Login</p></button>
                 </section>
